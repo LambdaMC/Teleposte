@@ -1,0 +1,31 @@
+main: com.kryeit.Teleposte
+version: 1.6.5
+name: Teleposte
+description: Postes para conectar con la gente!
+author: MuriPlz
+softdepend: [GriefDefender]
+api-version: 1.18
+commands:
+  postecercano:
+    description: te muestra el poste más cercano
+    aliases: poste
+  mudarse:
+    description: hace del poste más cercano tu casa
+  invitar:
+    description: invita a un jugador a tu casa
+  casa:
+    description: te teletransporta a tu casa
+    aliases: c
+  visitar:
+    description: visita un poste
+    aliases: v
+  nombrarposte:
+    description: nombra un poste
+  desnombrarposte:
+    description: desnombra un poste
+    permission: telepost.unnamepost
+  listapostes:
+    description: muestra los postes con nombre, y te deja clicarlos
+  dumpdb:
+    description: Dumps the database
+    permission: telepost.dumpdb
