@@ -26,7 +26,7 @@ public class PostAPI {
     public static int HEIGHT = 319;
     public static String WORLD_NAME = "world";
     public static World WORLD = Objects.requireNonNull(Bukkit.getServer().getWorld(WORLD_NAME));
-    public static double WORLDBORDER_RADIUS = WORLD.getWorldBorder().getSize() / 2;
+    public static int WORLDBORDER_RADIUS = (int) WORLD.getWorldBorder().getSize()/2;
 
 
     public static boolean isOnWorld(Player player, String world) {
@@ -138,27 +138,26 @@ public class PostAPI {
         return postAmountZ * postAmountX;
     }
 
-    public static List<Location> getAllPostLocations() {
+   //public static List<Location> getAllPostLocations() {
 
-        List<Location> allPosts = new ArrayList<>();
+   //    List<Location> allPosts = new ArrayList<>();
 
-        WorldBorder worldBorder = WORLD.getWorldBorder();
-        int size = (int) worldBorder.getSize();
+   //    int size = (int) (WORLDBORDER_RADIUS);
+   //    Bukkit.getConsoleSender().sendMessage(size+"     "+GAP + "     adadadadadad   ");
+   //    int startX = -size;
+   //    int startZ = -size;
 
-        int startX = - size / GAP;
-        startX = startX * GAP - ORIGIN_X;
+   //    int endX = size;
+   //    int endZ = size;
 
-        int startZ = - size / GAP;
-        startZ = startZ * GAP - ORIGIN_Z;
-
-        for (int i = startX; i < Math.abs(startX + 2 * ORIGIN_X); i += GAP) {
-            for (int j = startZ; j < Math.abs(startZ + 2 * ORIGIN_Z); j += GAP) {
-                Location loc = new Location(WORLD, i, 319, j);
-                allPosts.add(loc);
-            }
-        }
-        return allPosts;
-    }
+   //    for (int i = startX; i <= endX; i += GAP) {
+   //        for (int j = startZ; j <= endZ; j += GAP) {
+   //            Location loc = new Location(WORLD, i, 319, j);
+   //            allPosts.add(loc);
+   //        }
+   //    }
+   //    return allPosts;
+   //}
 
     public static void teleport(Player player, Location location) {
         player.teleport(location);

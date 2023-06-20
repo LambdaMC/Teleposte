@@ -26,12 +26,6 @@ public class ComandoDesnombrarPoste implements CommandExecutor {
             Bukkit.getConsoleSender().sendMessage(instance.name + PostAPI.getMessage("cant-execute-from-console"));
         } else {
 
-            // Permission node
-            if (!player.hasPermission("telepost.unnamepost")) {
-                player.sendMessage(PostAPI.getMessage("no-permission"));
-                return false;
-            }
-
             // /UnnamePost (this looks for the nearest post)
             if (args.length == 0) {
                 if (!player.getWorld().getName().equals(WORLD_NAME)) {

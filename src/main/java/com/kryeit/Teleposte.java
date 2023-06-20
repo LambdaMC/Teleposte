@@ -210,6 +210,7 @@ public class Teleposte extends JavaPlugin {
     }
 
     public void registerCommands() {
+        registerCommand("protegerpostes", new ComandoProtegerPostes());
         // /nearestpost
         registerCommand("postecercano", new ComandoPosteCercano());
 

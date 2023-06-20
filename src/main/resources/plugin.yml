@@ -29,3 +29,6 @@ commands:
   dumpdb:
     description: Dumps the database
     permission: telepost.dumpdb
+  protegerpostes:
+    description: protege automaticamente todos los postes del mundo
+    permission: telepost.claimposts
