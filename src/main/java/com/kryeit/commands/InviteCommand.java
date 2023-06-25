@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class ComandoInvitar implements CommandExecutor {
+public class InviteCommand implements CommandExecutor {
     // This commands aims to be /Invite in-game
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Teleposte instance = Teleposte.getInstance();

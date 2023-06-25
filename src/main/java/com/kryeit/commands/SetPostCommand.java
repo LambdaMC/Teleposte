@@ -18,7 +18,7 @@ import static com.kryeit.commands.PostAPI.HEIGHT;
 import static com.kryeit.commands.PostAPI.WORLD_NAME;
 
 
-public class ComandoMudarse implements CommandExecutor {
+public class SetPostCommand implements CommandExecutor {
     //  This commands aims to be /SetPost in-game
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Teleposte instance = Teleposte.getInstance();
@@ -46,7 +46,7 @@ public class ComandoMudarse implements CommandExecutor {
             int postZ = nearestPost.getBlockZ();
 
             if (PostAPI.isInsideWorldBorder(player)) {
-                player.sendMessage(PostAPI.colour("&cThe nearest post is outside the world border, try somewhere else"));
+                player.sendMessage(PostAPI.colour("&cEl poste más cercano está fuera del borde del mapa, prueba en otro sitio."));
                 return false;
             }
 

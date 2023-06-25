@@ -16,7 +16,7 @@ import java.util.Optional;
 import static com.kryeit.commands.PostAPI.HEIGHT;
 import static com.kryeit.commands.PostAPI.WORLD_NAME;
 
-public class ComandoCasa implements CommandExecutor {
+public class HomePostCommand implements CommandExecutor {
     //  This commands aims to be /HomePost in-game
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Teleposte instance = Teleposte.getInstance();

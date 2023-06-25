@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
-public class ComandoListaPostes implements CommandExecutor {
+public class PostListCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Teleposte instance = Teleposte.getInstance();

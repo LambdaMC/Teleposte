@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static com.kryeit.commands.PostAPI.WORLD_NAME;
 
-public class ComandoDesnombrarPoste implements CommandExecutor {
+public class UnnamePostCommand implements CommandExecutor {
     // This command aims to be /UnnamePost in-game
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -25,6 +25,12 @@ public class ComandoDesnombrarPoste implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             Bukkit.getConsoleSender().sendMessage(instance.name + PostAPI.getMessage("cant-execute-from-console"));
         } else {
+
+            // Permission node
+            if (!player.hasPermission("telepost.unnamepost")) {
+                player.sendMessage(PostAPI.getMessage("no-permission"));
+                return false;
+            }
 
             // /UnnamePost (this looks for the nearest post)
             if (args.length == 0) {

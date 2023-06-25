@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static com.kryeit.commands.PostAPI.WORLD_NAME;
 
-public class ComandoPosteCercano implements CommandExecutor {
+public class NearestPostCommand implements CommandExecutor {
     Teleposte plugin = Teleposte.getInstance();
 
     //  This commands aims to be /NearestPost in-game

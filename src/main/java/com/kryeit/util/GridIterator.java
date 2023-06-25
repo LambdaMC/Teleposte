@@ -6,27 +6,30 @@ import org.bukkit.World;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static com.kryeit.commands.PostAPI.GAP;
+import static com.kryeit.commands.PostAPI.*;
 
 public class GridIterator implements Iterator<Location> {
+    private final World world;
+    private final int startX;
+    private final int startZ;
+    private final int endX;
+    private final int endZ;
+    private int currentX;
+    private int currentZ;
 
-    private int x;
-    private int z;
-    private int endX;
-    private int endZ;
-    private World world;
-
-    public GridIterator(World world, int startX, int startZ, int endX, int endZ) {
-        this.world = world;
-        this.x = startX;
-        this.z = startZ;
-        this.endX = endX;
-        this.endZ = endZ;
+    public GridIterator() {
+        this.world = WORLD;
+        this.startX = (ORIGIN_X - WORLDBORDER_RADIUS / GAP) * GAP;
+        this.startZ = (ORIGIN_Z - WORLDBORDER_RADIUS / GAP) * GAP;
+        this.endX = (ORIGIN_X + WORLDBORDER_RADIUS / GAP) * GAP;
+        this.endZ = (ORIGIN_Z + WORLDBORDER_RADIUS / GAP) * GAP;
+        this.currentX = this.startX;
+        this.currentZ = this.startZ;
     }
 
     @Override
     public boolean hasNext() {
-        return x <= endX && z <= endZ;
+        return currentZ <= endZ;
     }
 
     @Override
@@ -35,12 +38,13 @@ public class GridIterator implements Iterator<Location> {
             throw new NoSuchElementException();
         }
 
-        Location location = new Location(world, x, 319, z);
+        Location location = new Location(world, currentX, WORLD.getHighestBlockYAt(currentX,currentZ), currentZ);
 
-        x += GAP;
-        if (x > endX) {
-            x = -endX;
-            z += GAP;
+        // Move to the next location in the grid.
+        currentX += GAP;
+        if (currentX > endX) {
+            currentX = startX;
+            currentZ += GAP;
         }
 
         return location;

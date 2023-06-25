@@ -12,7 +12,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 public class PostAPI {
     // HERE COMES STATIC ABUSE :D
@@ -26,7 +28,7 @@ public class PostAPI {
     public static int HEIGHT = 319;
     public static String WORLD_NAME = "world";
     public static World WORLD = Objects.requireNonNull(Bukkit.getServer().getWorld(WORLD_NAME));
-    public static int WORLDBORDER_RADIUS = (int) WORLD.getWorldBorder().getSize()/2;
+    public static int WORLDBORDER_RADIUS = (int) (WORLD.getWorldBorder().getSize() / 2);
 
 
     public static boolean isOnWorld(Player player, String world) {
@@ -40,7 +42,7 @@ public class PostAPI {
         // for the Z axis
         int postZ = PostAPI.getNearPost(player.getLocation().getBlockZ(), ORIGIN_Z);
 
-        return new Location(player.getWorld(), postX, HEIGHT, postZ);
+        return new Location(WORLD, postX, WORLD.getHighestBlockYAt(postX,postZ), postZ);
     }
 
     public static String getPostID(String[] args) {
@@ -126,38 +128,6 @@ public class PostAPI {
         }
         return false;
     }
-
-    public static int getPostAmount() {
-
-        WorldBorder worldBorder = Objects.requireNonNull(WORLD).getWorldBorder();
-        int size = (int) worldBorder.getSize();
-
-        int postAmountX = (size - ORIGIN_X) / GAP + 1 + (size + ORIGIN_X) / GAP;
-        int postAmountZ = (size - ORIGIN_Z) / GAP + 1 + (size + ORIGIN_Z) / GAP;
-
-        return postAmountZ * postAmountX;
-    }
-
-   //public static List<Location> getAllPostLocations() {
-
-   //    List<Location> allPosts = new ArrayList<>();
-
-   //    int size = (int) (WORLDBORDER_RADIUS);
-   //    Bukkit.getConsoleSender().sendMessage(size+"     "+GAP + "     adadadadadad   ");
-   //    int startX = -size;
-   //    int startZ = -size;
-
-   //    int endX = size;
-   //    int endZ = size;
-
-   //    for (int i = startX; i <= endX; i += GAP) {
-   //        for (int j = startZ; j <= endZ; j += GAP) {
-   //            Location loc = new Location(WORLD, i, 319, j);
-   //            allPosts.add(loc);
-   //        }
-   //    }
-   //    return allPosts;
-   //}
 
     public static void teleport(Player player, Location location) {
         player.teleport(location);

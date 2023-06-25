@@ -1,6 +1,7 @@
 package com.kryeit;
 
 import com.kryeit.commands.*;
+import com.kryeit.compat.CompatAddon;
 import com.kryeit.leash.onLeash;
 import com.kryeit.listeners.onFall;
 import com.kryeit.listeners.onGlide;
@@ -24,6 +25,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +75,9 @@ public class Teleposte extends JavaPlugin {
         // Set the messages.yml file
         loadMessages();
 
+        // Set the structures folder
+        setupStructureData();
+
         instance = this;
 
         // Register all commands and tab completions
@@ -94,6 +103,7 @@ public class Teleposte extends JavaPlugin {
             @Override
             public void loadDefaults() {
                 addLink("GitHub", "https://github.com/LambdaMC/Teleposte");
+                addLink("Modrinth", "https://modrinth.com/plugin/telepost");
 
                 addComment("This number has to be higher than 0. (default = 800 blocks)");
                 addDefault("distance-between-posts", 800);
@@ -104,7 +114,8 @@ public class Teleposte extends JavaPlugin {
                 addComment("First post's Z coordinate (default -> z = 0)");
                 addDefault("post-z-location", 0);
 
-                addComment("The width of the post, with center on /nearestpost. Only odd, don't even. ( default = 5 blocks, 2 to each coordinate + the center )");
+                addComment("The width of the post, with center on /nearestpost. Only odd, don't even. ( default = 5 blocks, 2 to each coordinate + the center )\n" +
+                        "Please, keep in mind that default.nbt (or any other post .nbt) should have the same width as stated here.");
                 addDefault("post-width", 5);
 
                 addComment("/homepost and /visit have this feature, this launches you to the sky before teleporting. ( default = true )");
@@ -210,30 +221,34 @@ public class Teleposte extends JavaPlugin {
     }
 
     public void registerCommands() {
-        registerCommand("protegerpostes", new ComandoProtegerPostes());
+
+        if(CompatAddon.GRIEF_DEFENDER.isLoaded()) {
+            registerCommand("protegerpostes", new ClaimPostsCommand());
+        }
+        registerCommand("construirpostes", new BuildPostsCommand());
         // /nearestpost
-        registerCommand("postecercano", new ComandoPosteCercano());
+        registerCommand("poste", new NearestPostCommand());
 
         // /setpost
-        registerCommand("mudarse", new ComandoMudarse());
+        registerCommand("mudarse", new SetPostCommand());
 
         // /homepost
-        registerCommand("casa", new ComandoCasa());
+        registerCommand("casa", new HomePostCommand());
 
         // /invite <Player>
-        registerCommand("invitar", new ComandoInvitar(), new InviteTab());
+        registerCommand("invitar", new InviteCommand(), new InviteTab());
 
         // /visit <NamedPost/Player>
-        registerCommand("visitar", new ComandoVisitar(), new VisitTab());
+        registerCommand("visitar", new VisitCommand(), new VisitTab());
 
         // /namepost <Name>
-        registerCommand("nombrarposte", new ComandoNombrarPoste());
+        registerCommand("nombrarposte", new NamePostCommand());
 
         // /unnamepost (Name)
-        registerCommand("desnombrarposte", new ComandoDesnombrarPoste(), new UnnamePost());
+        registerCommand("desnombrarposte", new UnnamePostCommand(), new UnnamePost());
 
         // /postlist
-        registerCommand("listapostes", new ComandoListaPostes(), new PostListTab());
+        registerCommand("listapostes", new PostListCommand(), new PostListTab());
 
         // /dumpdb
         registerCommand("dumpdb", new CommandDumpDB());
@@ -251,6 +266,37 @@ public class Teleposte extends JavaPlugin {
 
         command.setExecutor(executor);
         if (tabCompleter != null) command.setTabCompleter(tabCompleter);
+    }
+
+    public void setupStructureData() {
+        // Create "structures" directory if it doesn't exist
+        File structuresFolder = new File(getDataFolder(), "structures");
+        if (!structuresFolder.exists()) {
+            structuresFolder.mkdirs();
+        }
+
+        // Create "default.nbt" file if it doesn't exist
+        File defaultNbtFile = new File(structuresFolder, "default.nbt");
+        if (!defaultNbtFile.exists()) {
+            try (InputStream in = getResource("default.nbt")) {
+                Files.copy(in, defaultNbtFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                // Handle exception
+                e.printStackTrace();
+            }
+        }
+        Path sourcePath = Paths.get(getDataFolder().getAbsolutePath(), "structures", "default.nbt");
+        Path worldDirectory = Bukkit.getServer().getWorldContainer().toPath();
+        Path targetPath = worldDirectory.resolve(Paths.get("world", "generated", "minecraft", "structures", "default.nbt"));
+
+        try {
+            Files.createDirectories(targetPath.getParent());
+            Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public static IDatabase getDB() {

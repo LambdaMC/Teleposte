@@ -21,7 +21,7 @@ import static com.kryeit.commands.PostAPI.HEIGHT;
 import static com.kryeit.commands.PostAPI.WORLD_NAME;
 
 
-public class ComandoVisitar implements CommandExecutor {
+public class VisitCommand implements CommandExecutor {
     //  This commands aims to be /visit in-game
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Teleposte instance = Teleposte.getInstance();

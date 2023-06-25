@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.kryeit'
-version '1.0'
+version '2.1'
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -28,7 +28,8 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
+    compileOnly "com.github.shynixn.structureblocklib:structureblocklib-bukkit-api:2.11.0"
+    compileOnly "org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT"
     implementation 'com.github.thatsmusic99:ConfigurationMaster:v1.0.3'
     implementation "org.iq80.leveldb:leveldb:0.12"
     compileOnly "com.griefdefender:api:2.1.0-20220122.032038-5"

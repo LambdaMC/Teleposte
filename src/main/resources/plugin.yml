@@ -1,14 +1,14 @@
 main: com.kryeit.Teleposte
-version: 1.6.5
+version: 2.1
 name: Teleposte
 description: Postes para conectar con la gente!
 author: MuriPlz
-softdepend: [GriefDefender]
+softdepend: [GriefDefender,StructureBlockLib]
 api-version: 1.18
 commands:
-  postecercano:
+  poste:
     description: te muestra el poste más cercano
-    aliases: poste
+    aliases: postecercano
   mudarse:
     description: hace del poste más cercano tu casa
   invitar:
@@ -23,7 +23,7 @@ commands:
     description: nombra un poste
   desnombrarposte:
     description: desnombra un poste
-    permission: telepost.unnamepost
+    permission: telepost.desnombrarposte
   listapostes:
     description: muestra los postes con nombre, y te deja clicarlos
   dumpdb:
@@ -31,4 +31,7 @@ commands:
     permission: telepost.dumpdb
   protegerpostes:
     description: protege automaticamente todos los postes del mundo
-    permission: telepost.claimposts
+    permission: telepost.protegerpostes
+  construirpostes:
+    description: construye todos los postes del mundo
+    permission: telepost.construirpostes
