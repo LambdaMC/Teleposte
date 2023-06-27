@@ -16,12 +16,13 @@ public class BlockFinder {
             Block block = WORLD.getBlockAt(x, y, z);
             Material type = block.getType();
 
+            if(type.toString().toUpperCase().contains("LEAVES")) continue;
             // A block is "solid" if it's not air, not liquid, has collision, and isn't leaves.
             // Adjust this condition to fit your needs.
             if(type == Material.WATER || type == Material.LAVA) {
                 return block.getLocation().getBlockY();
             }
-            if (type != Material.AIR && type.isSolid() && !type.isTransparent()) {
+            if (type.isSolid()) {
                 return block.getLocation().getBlockY();
             }
         }

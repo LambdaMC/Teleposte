@@ -167,7 +167,7 @@ public class Teleposte extends JavaPlugin {
                 addComment("/HomePost or /Visit:");
                 addDefault("already-at-homepost", "&cYa estás en tu casa.");
                 addDefault("named-post-arrival", "&fBienvenido a &6%POST_NAME%&f.");
-                addDefault("invited-home-arrival", "&Bienvenido a la casa de &6%PLAYER_NAME%&f.");
+                addDefault("invited-home-arrival", "&fBienvenido a la casa de &6%PLAYER_NAME%&f.");
                 addDefault("own-homepost-arrival", "&fBienvenido a tu casa.");
                 addDefault("homepost-without-setpost", "&fPor favor, usa /mudarse antes.");
                 addDefault("visit-not-invited", "&cNo has sido invitado.");

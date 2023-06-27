@@ -49,7 +49,6 @@ public class BuildPostsCommand implements CommandExecutor {
                         alreadyBuilt++;
                         BlockFinder.clearArea(loc,width);
                         executeStructure(player, loc, alreadyBuilt);
-
                     } else {
                         buildTask.cancel(); // Stop the task when there are no more locations
                     }
