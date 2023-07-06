@@ -47,7 +47,7 @@ public class InviteCommand implements CommandExecutor {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Teleposte.getInstance(), () -> {
             player.sendMessage(PostAPI.getMessage("invite-expire").replace("%PLAYER_NAME%", invitee.getName()));
             instance.invites.removeValue(player.getUniqueId(), invitee.getUniqueId());
-        }, 6_000);
+        }, 1_728_000);
         return true;
     }
 }
