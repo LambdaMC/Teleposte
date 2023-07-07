@@ -253,6 +253,8 @@ public class Teleposte extends JavaPlugin {
         // /dumpdb
         registerCommand("dumpdb", new CommandDumpDB());
 
+        registerCommand("forzarvisita", new ForceVisitCommand(), new ForceVisitTab());
+
     }
 
     private void registerCommand(String name, CommandExecutor executor) {

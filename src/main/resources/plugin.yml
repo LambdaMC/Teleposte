@@ -23,7 +23,7 @@ commands:
     description: nombra un poste
   desnombrarposte:
     description: desnombra un poste
-    permission: telepost.desnombrarposte
+    permission: telepost.unnamepost
   listapostes:
     description: muestra los postes con nombre, y te deja clicarlos
   dumpdb:
@@ -31,7 +31,10 @@ commands:
     permission: telepost.dumpdb
   protegerpostes:
     description: protege automaticamente todos los postes del mundo
-    permission: telepost.protegerpostes
+    permission: telepost.claimposts
   construirpostes:
     description: construye todos los postes del mundo
-    permission: telepost.construirpostes
+    permission: telepost.buildposts
+  forzarvisita:
+    description: fuerza la visita de un jugador a un poste
+    permission: telepost.forcevisit
